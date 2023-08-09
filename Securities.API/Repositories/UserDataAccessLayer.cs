@@ -8,7 +8,7 @@ using System.Data;
 
 namespace Securities.API.Repositories
 {
-    public class UserDataAccessLayer : BaseConnection
+    public class UserDataAccessLayer : BaseConnection, IUserDataAccessLayer
     {
         public UserDataAccessLayer(IConnectionConfig config) : base(config)
         {
@@ -44,7 +44,7 @@ namespace Securities.API.Repositories
         }
 
         //Add a New User
-        public async void AddAUser(User user)
+        public async void AddAUser(UserResponse user)
         {
             using (SqlConnection con = await _config.GetConnection())
             {
@@ -83,7 +83,7 @@ namespace Securities.API.Repositories
         }
 
         //Get a detail of particular User
-        public async Task<User> GetUserData(int? id)
+        public async Task<User> GetUserData(int id)
         {
             User user = new User();
 
@@ -107,7 +107,7 @@ namespace Securities.API.Repositories
         }
 
         //Delete a user
-        public async void DeleteAUser(int? id)
+        public async void DeleteAUser(int id)
         {
             using (SqlConnection con = await _config.GetConnection())
             {

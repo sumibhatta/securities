@@ -20,7 +20,7 @@ builder.Services.AddScoped<UserDataAccessLayer>();
 //Connection Configuration
 builder.Services.AddTransient<IConnectionConfig, ConnectionConfig>();
 
-//Adding DBCOntext
+//Adding DBContext
 builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")));
 

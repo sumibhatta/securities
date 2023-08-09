@@ -25,25 +25,30 @@ namespace Securities.API.Controllers
 
         //List An USer
         [HttpGet("{id}")]
-        public async Task<IActionResult> UserDetails(int? id)
+        public async Task<IActionResult> UserDetails(int id)
         {
             if (id == null)
             {
-                return BadRequest("User Not Found");
+                return BadRequest("Id not entered");
             }
 
-            Task<User> user = _dataAccessLayer.GetUserData(id);
+           User user = await _dataAccessLayer.GetUserData(id);
 
-            if (user == null)
+            //if (user. == id)
+            //{
+            //    return BadRequest("User Not Found");
+            //}
+
+            if (user.UserId != id)
             {
-                return NotFound();
+                return NotFound("User Not Found");
             }
             return Ok(user);
         }
 
         //Add An User
         [HttpPost("add")]
-        public async Task<IActionResult> AddUser(User user)
+        public async Task<IActionResult> AddUser(UserResponse user)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +78,7 @@ namespace Securities.API.Controllers
 
         //Delete An User
         [HttpPost("delete/{id}")]
-        public async Task<IActionResult> DeleteUser(int? id)
+        public async Task<IActionResult> DeleteUser(int id)
         {
 
             if (id == null)
